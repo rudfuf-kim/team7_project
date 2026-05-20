@@ -1,5 +1,8 @@
+from .br_game import BaskinRobbins31Round 
+
 class Start_game:
     def __init__(self):
+        self.game_1 = BaskinRobbins31Round()
         self.life = 10
         self.current_stage = 1
         self.stories = {
@@ -51,9 +54,8 @@ class Start_game:
         self.print_story("opening")
 
         #2. 첫번쨰 게임
-        game1 = Game1()
         while self.current_stage == 1:
-            if game1.play():
+            if self.game_1.run():
                 self.current_stage += 1
                 self.print_story("stage1_clear")
             else:
