@@ -1,7 +1,7 @@
-from games.config import ADMIN_ID, ADMIN_PASSWORD, MAX_LOGIN_ATTEMPTS
+from .games.config import ADMIN_ID, ADMIN_PASSWORD, MAX_LOGIN_ATTEMPTS
 from .login_manager import LoginManager
-from games.ranking_board import RankingBoard
-from games.start_game import Start_game
+from .games.ranking_board import RankingBoard
+from .games.start_game import Start_game
 
 class GameManager:
     def __init__(self):
@@ -44,4 +44,3 @@ class GameManager:
                 break
             else:
                 print("잘못된 입력입니다.")
-    
