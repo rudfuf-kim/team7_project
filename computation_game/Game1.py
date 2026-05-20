@@ -6,24 +6,22 @@ import concurrent.futures
 class Game1:
     
     def __init__(self):
-        self.num0 = random.randint(1,4)
-        self.num1 = random.randint(1,9)
-        self.num2 = random.randint(1,9)
+        self.life = 0
 
 #랜던값 반아줌
     def get_random(self, start=1, end=9):   
         return random.randint(start, end)
 
 #난이도 고르기
-    def difficulty(self):
-        print('난이도를 선택합니다)')
-        user_abcd = input('A, B, C 중 하나를 골라주세요 : ')
-        self.difficulty = self.get_random(1, 3)
-        print(f'선택하신 난이도는 {self.difficulty}입니다!')
+    def ft_difficulty(self):
+        user_input = input('랜덤 난이도를 선택해 주세요. A B C :')
+        self.difficulty = self.get_random(1, 4)
+        return self.difficulty
+
 
 #정답 입력 타이머, 시간초과 되면 탈락
     def get_answer(self):
-        return input('정답을 입력하세요 (5초 제한) : ')
+        return input('정답을 입력하세요 : ')
 
 
     def ask_with_timeout(self, time_limit=5):
@@ -69,6 +67,7 @@ class Game1:
             # 결과 판별
             if user_ans is None:
                 print(f" 땡🔔 시간 초과! 정답은 {correct_answer} 였습니다.")
+                self.life -= 1
                 return False
                 
             try:
@@ -77,6 +76,7 @@ class Game1:
                     return True
                 else:
                     print(f"틀렸습니다! 정답은 {correct_answer} 였습니다.")
+                    self.life -= 1
                     return False
                 
             except ValueError:
@@ -115,6 +115,7 @@ class Game1:
             # 결과 판별
             if user_ans is None:
                 print(f" 땡🔔 시간 초과! 정답은 {correct_answer} 였습니다.")
+                self.life -= 1
                 return False
                 
             try:
@@ -123,6 +124,7 @@ class Game1:
                     return True
                 else:
                     print(f"틀렸습니다! 정답은 {correct_answer} 였습니다.")
+                    self.life -= 1
                     return False
                 
             except ValueError:
@@ -135,7 +137,7 @@ class Game1:
         x = sp.Symbol('x')
         
         # 2: sin, 3: cos, 4: tan, 5: log, 6: exp
-        f_type = random.randint(1, 6)
+        f_type = random.randint(2, 6)
         
         #if f_type == 1:
             # 5차 이하 다항함수
@@ -160,7 +162,7 @@ class Game1:
         correct_answer = sp.diff(expr, x)
 
         # 3. 문제 출력
-        print("다음 함수를 x에 대해 미분하세요.")
+        print("다음 함수를 x에 대해 미분하세요. (제한 시간 10초 )")
         sp.pprint(sp.Eq(sp.Symbol('f(x)'), expr))
         print("(입력 예시: 3*x**2, 2*cos(x), exp(x), 5/x 등)")
         
@@ -170,9 +172,10 @@ class Game1:
             user_ans = self.ask_with_timeout(10)
             
             if user_ans is None:
-                correct_answer_p = sp.pprint(correct_answer)
-                print(f" 땡🔔 시간 초과! 정답은 {correct_answer_p} 였습니다.")
-                #sp.pprint(correct_answer)
+                #correct_answer_p = sp.pprint(correct_answer)
+                print(f" 땡🔔 시간 초과! 정답은 다음과 같습니다.")
+                sp.pprint(correct_answer)
+                self.life -= 1
                 return False
                 
             try:
@@ -184,32 +187,11 @@ class Game1:
                     print("딩동댕🎵 정답입니다!")
                     return True
                 else:
-                    correct_answer_p = sp.pprint(correct_answer)
-                    print(f"틀렸습니다! 정답은 {correct_answer_p} 였습니다.")
+                    print(f" 땡🔔 시간 초과! 정답은 다음과 같습니다.")
+                    sp.pprint(correct_answer)
+                    self.life -= 1
                     return False
                     
             except sp.SympifyError:
                 print("수식 기호가 잘못되었습니다! 다시 입력해주세요.")
                 print("※ 주의: 곱하기는 *, 거듭제곱은 ** 로 써야 합니다. (예: 3*x**2)")
-
-
-
-
-
-
-
-
-
-#난이도 1 (구구단, 두자릿수 덧셈 뺄셈)
-
-#난이도 2 (세자리수 이상)
-
-#난이도 3 (괄호 사칙연산)
-
-#난이도 4 (미분)
-
-#5초 타이머
-
-my_game = Game1()
-#my_game.ft_ask_with_timeout()
-my_game.game_3()
