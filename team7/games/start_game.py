@@ -1,6 +1,6 @@
-class start_game:
+class Start_game:
     def __init__(self):
-        self.player_hp = 10
+        self.life = 10
         self.current_stage = 1
         self.stories = {
             "opening": """
@@ -45,8 +45,8 @@ class start_game:
         print(self.stories[scene_key])
         input("\n[Enter 키를 누르면 진행됩니다]")
 
-#
-    def start(self):
+# 메인 게임
+    def main_game(self):
         #1. 오프닝 출력
         self.print_story("opening")
 
@@ -58,7 +58,7 @@ class start_game:
                 self.print_story("stage1_clear")
             else:
                 self.handle_failure()
-                if self.player_hp <= 0:
+                if self.life <= 0:
                     return 0
         
         #3. 두번째 게임
@@ -69,7 +69,7 @@ class start_game:
                 self.print_story("stage2_clear")
             else:
                 self.handle_failure()
-                if self.player_hp <= 0:
+                if self.life <= 0:
                     return 0
                 
         #4. 세번쨰 게임
@@ -78,15 +78,18 @@ class start_game:
             if game3.play():
                 self.current_stage += 1
                 self.print_story("clear")
+                self.nickname = input("닉네임을 입력해주세요. : ")
+
             else:
                 self.handle_failure()
-                if self.player_hp <= 0:
+                if self.life <= 0:
                     return 0
                 
-        return self.player_hp
+        return self.nickname, self.life
     
+    #게임 오버시 연출
     def handle_failure(self):
-        self.player_hp -= 1
-        print(f"\n실패! 목숨이 차감되었습니다. (남은 목숨: {self.player_hp}/10)")
-        if self.player_hp <= 0:
+        self.life -= 1
+        print(f"\n실패! 목숨이 차감되었습니다. (남은 목숨: {self.life}/10)")
+        if self.life <= 0:
             self.print_story("gameover")
