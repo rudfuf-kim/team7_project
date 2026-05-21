@@ -132,14 +132,14 @@ class BaskinRobbins31Round:
                     return True
                 current_turn = "사용자"
 
-    def run(self) -> int:
+    def run(self) -> bool:
        
         print("\n====================================")
         print("  🍦 베스킨라빈스 31 라운드 진입!  ")
         print("====================================")
         
         difficulty = self.select_difficulty()
-        self.play_single_game(difficulty)
+        return self.play_single_game(difficulty)
 
 
 

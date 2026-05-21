@@ -9,13 +9,14 @@
 
 import random 
 
-class baseball_game():
+class Baseball_game():
 
     def __init__(self):
         self.qnumloc = {}
 
     def asking(self):
 
+        self.qnumloc = {}
         used_nums = []
         i = 0
 
@@ -96,3 +97,6 @@ class baseball_game():
         
         print("답변기회가 더이상 존재하지 않습니다. 패배하였습니다.")
         return False
+
+    def run(self):
+        return self.play()
